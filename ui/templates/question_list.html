@@ -1,0 +1,6 @@
+{% for q in questions %}
+<b>{{q.number}}</b>) <b>Тема</b>: {{ q.theme }}
+     <b>Первый вопрос</b>: {{ q.first }}
+     <b>Преподаватель</b>: {{ q.teacher }}
+     <b>Дата</b>: {{ q.data }}
+{% endfor %}

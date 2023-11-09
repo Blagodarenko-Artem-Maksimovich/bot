@@ -1,0 +1,56 @@
+image: python:3.8
+
+variables:
+  PIP_CACHE_DIR: "$CI_PROJECT_DIR/.cache/pip"
+
+cache:
+  paths:
+    - ~/.cache/pip/
+
+stages:
+  - style
+  - test
+  - docs
+
+pylint:
+  stage: style
+  before_script:
+    - pip install -r requirements_dev.txt
+    - apt-get update
+    - apt-get install -y --no-install-recommends bc
+  script:
+    - ci/pylint_runner.sh
+  allow_failure: true
+  artifacts:
+    paths:
+      - public/
+  only:
+    - master
+    - develop
+    - ci/pylint
+
+test:
+  stage: test
+  before_script:
+    - pip install -r requirements_dev.txt
+  script:
+    - coverage run tests_runner.py
+    - coverage report --omit="tests/*.py"
+
+sphinx:
+  stage: docs
+  before_script:
+    - pip install -r requirements_dev.txt
+  script:
+    - cd docs
+    - make html
+    - cd ..
+    - mkdir public
+    - mv docs/build/html public/docs
+  artifacts:
+    paths:
+      - public/docs
+  only:
+    - master
+    - develop
+    - ci/pylint

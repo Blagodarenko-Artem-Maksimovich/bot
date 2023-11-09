@@ -1,0 +1,6 @@
+<b>Тема: </b>{{ theme }}
+<b>Преподаватель: </b>{{ teacher }}
+<b>Дата: </b>{{ date }}
+<b>-----------------------------------</b>{% if is_many_comments %}<br><b>...</b>{% endif %}{% for comment in comments %}
+{% if comment.is_author_you %}<b>Ты:</b> {{ comment.message }}{% else %}<b>Преподаватель:</b> {{ comment.message }}{% endif %}
+{% endfor %}

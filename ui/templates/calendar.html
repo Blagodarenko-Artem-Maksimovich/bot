@@ -1,0 +1,10 @@
+<b>Занятия в месяце {{ month_name }}</b>:
+{% for day in days %}
+{{ day.date }}:
+{% for lesson in day.lessons %}{% include 'widgets/lesson_time.html' %} {{ lesson.visited }}:
+Предмет: {{ lesson.subject }}
+Тема: {% if lesson.theme %}{{lesson.theme}}{% else %}не указана{%endif%}
+{% endfor %}{% endfor %}
+Посещено - 🟢
+Пропущено - 🔴
+Предстоит - ⚪️

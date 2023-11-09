@@ -1,0 +1,12 @@
+-r requirements.txt
+
+# Docs
+Sphinx==4.4.0
+sphinx-rtd-theme==1.0.0
+
+# Codestyle
+pylint==2.12.2
+pylint-json2html==0.4.0
+
+# Tests
+coverage==6.3.2
